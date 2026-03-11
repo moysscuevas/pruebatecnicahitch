@@ -21,6 +21,30 @@
             <h4 class="alert-heading">Resultado API Externa</h4>
             <hr>
             #REEMPLAZAR_POR_TABLA
+            <table class="table table-bordered" id="table">
+                <thead>
+                    <tr>
+                        <th class="text-center">ID</th>
+                        <th class="text-center">Nombre</th>
+                        <th class="text-center">Email</th>
+                        <th class="text-center">Telefono</th>
+                        <th class="text-center">Compañía</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if(count($users) > 0)
+                        @foreach ($users as $user)
+                            <tr>
+                                <td class="text-center">{{ $user['id'] }}</td>
+                                <td class="text-center">{{ $user['name'] }}</td>
+                                <td class="text-center">{{ $user['email'] }}</td>
+                                <td class="text-center">{{ $user['phone'] }}</td>
+                                <td class="text-center">{{ $user['company']['name'] }}</td>
+                            </tr>
+                        @endforeach
+                    @endif
+                </tbody>
+            </table>
         </div>
     </div>
     <script>
