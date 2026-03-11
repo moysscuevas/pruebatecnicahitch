@@ -28,8 +28,9 @@
                     {!! session('alert-error') !!}
                 </div>
             @endif
-            
-            <form action="#" method="POST">
+
+            <form action="{{ route('payments-store') }}" method="POST">
+                @csrf
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
