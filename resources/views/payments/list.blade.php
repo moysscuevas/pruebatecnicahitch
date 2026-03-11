@@ -64,7 +64,7 @@
                 "columns":[
                     {data: 'id',},
                     {data: 'description',},
-                    {data: 'price',},
+                    {data: 'precio',},
                     {data: 'action', name: 'action', orderable: false, searchable: false, class:"text-left"}
                 ]
             })

@@ -91,6 +91,9 @@ class PaymentsController extends Controller
         $payments = Payment::all();
 
         return datatables()->of($payments)
+            ->addColumn('precio', function ($payment) {
+                return '$'.number_format($payment->price, 0, ',', '.');
+            })
             ->addColumn('action', function ($payment) {
                 $editBtn = '<a href="' . route('payments-edit', $payment->id) . '" class="btn btn-sm btn-warning">Editar</a>';
                 $deleteForm = '<form action="' . route('payments-destroy', $payment->id) . '" method="POST" style="display:inline-block">' .
