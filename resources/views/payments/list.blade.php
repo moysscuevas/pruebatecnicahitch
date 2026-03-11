@@ -31,27 +31,43 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($payments as $payment)
-                        <tr>
-                            <td class="text-center">{{ $payment->id }}</td>
-                            <td class="text-center">{{ $payment->description }}</td>
-                            <td class="text-center">{{ $payment->price }}</td>
-                            <td class="text-center">
-                                <a href="{{ route('payments-edit', $payment->id) }}" class="btn btn-sm btn-warning">Editar</a>
-                                <form action="{{ route('payments-destroy', $payment->id) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
                 </tbody>
             </table>
         </div>
     </div>
 
     <script>
-        $('#table').DataTable();
+        var baseurl ="{!! url('/') !!}/";
+
+        $(document).ready(function(){
+            cargar_listado_pagos();
+        });
+
+        function cargar_listado_pagos()
+        {
+            var table = $('#table').DataTable({
+                "headers": {'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')},
+                "processing": true,
+                "serverSide": false,
+                "stateSave": false,
+                "order": [[ 0, "asc" ]],
+                "ajax": {
+                    "url": baseurl+"listado_pagos",
+                },
+                "pagingType": "simple_numbers",
+                "lengthMenu": [
+                    [10, 25, 50, 100, 500, -1],
+                    [10, 25, 50, 100, 500, "Todos"]
+                ],
+                'iDisplayLength': -1,
+                "responsive": false,
+                "columns":[
+                    {data: 'id',},
+                    {data: 'description',},
+                    {data: 'price',},
+                    {data: 'action', name: 'action', orderable: false, searchable: false, class:"text-left"}
+                ]
+            })
+        }
     </script>
 @endsection

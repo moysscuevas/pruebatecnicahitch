@@ -86,4 +86,20 @@ class PaymentsController extends Controller
         return redirect()->route('payments')->with('alert-success', 'Pago eliminado exitosamente');
     }
 
+    public function getPayments()
+    {
+        $payments = Payment::all();
+
+        return datatables()->of($payments)
+            ->addColumn('action', function ($payment) {
+                $editBtn = '<a href="' . route('payments-edit', $payment->id) . '" class="btn btn-sm btn-warning">Editar</a>';
+                $deleteForm = '<form action="' . route('payments-destroy', $payment->id) . '" method="POST" style="display:inline-block">' .
+                    csrf_field() .
+                    method_field('DELETE') .
+                    '<button type="submit" class="btn btn-sm btn-danger">Eliminar</button>' .
+                    '</form>';
+                return $editBtn.' '.$deleteForm;
+            })->make(true);
+    }
+
 }

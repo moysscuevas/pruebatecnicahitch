@@ -25,6 +25,7 @@ Route::post('/pagos/guardar', [PaymentsController::class, 'store'])->name('payme
 Route::get('/pagos/editar/{id}', [PaymentsController::class, 'edit'])->name('payments-edit');
 Route::put('/pagos/actualizar/{id}', [PaymentsController::class, 'update'])->name('payments-update');
 Route::delete('/pagos/eliminar/{id}', [PaymentsController::class, 'destroy'])->name('payments-destroy');
+Route::get('listado_pagos',[PaymentsController::class,'getPayments']);
 
 Route::get('punto-extra', [BonusController::class, 'index'])->name('extra-point');
 
