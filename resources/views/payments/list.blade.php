@@ -31,19 +31,21 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td class="text-center">1</td>
-                        <td class="text-center">Pago 1</td>
-                        <td class="text-center">1000</td>
-                        <td class="text-center">
-                            <div class="btn-group">
-                                <a href="#"
-                                    class="btn btn-sm btn-warning">Editar</a>
-                                <a href="#"
-                                    class="btn btn-sm btn-danger">Eliminar</a>
-                            </div>
-                        </td>
-                    </tr>
+                    @foreach ($payments as $payment)
+                        <tr>
+                            <td class="text-center">{{ $payment->id }}</td>
+                            <td class="text-center">{{ $payment->description }}</td>
+                            <td class="text-center">{{ $payment->price }}</td>
+                            <td class="text-center">
+                                <a href="{{ route('payments-edit', $payment->id) }}" class="btn btn-sm btn-warning">Editar</a>
+                                <form action="{{ route('payments-destroy', $payment->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
